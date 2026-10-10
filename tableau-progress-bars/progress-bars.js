@@ -88,8 +88,8 @@
   function numericValue(value) {
     if (typeof value === "number") return value;
     if (value == null || value === "") return NaN;
-
-    return Number(String(value).replace(/,/g, ""));
+    const cleaned = String(value).replace(/[\uFEFF\ufffe]/g, "").replace(/,/g, "").trim();
+    return Number(cleaned);
   }
 
   async function refresh(worksheet) {
