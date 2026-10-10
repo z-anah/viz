@@ -12,7 +12,7 @@
             website="https://example.com"/>
     <min-api-version>1.11</min-api-version>
     <source-location>
-      <url>http://localhost:8011/progress-bars.html</url>
+      <url>https://z-anah.github.io/viz/tableau-progress-bars/progress-bars.html</url>
     </source-location>
     <icon/>
 
