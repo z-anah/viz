@@ -1,0 +1,11 @@
+Activity,Delay
+A&CI Assessment,123 Days
+Path Weeding – Chemical,66 Days
+Urea,56 Days
+Trench Maintenance,48 Days
+Gupon (1:25),47 Days
+Pruning,45 Days
+Foot Bridges,43 Days
+Spot Spraying (Imperata),37 Days
+Rodent Pest Census,35 Days
+Circle Weeding – Manual,31 Days

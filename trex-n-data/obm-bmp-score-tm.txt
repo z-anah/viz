@@ -1,0 +1,2 @@
+BMP Score,Sumatra Score,Kalimantan Score,Sumatra MoM,Kalimantan MoM,MoM Overall
+77,84,73,-1,-0.8,-0.5

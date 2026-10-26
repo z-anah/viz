@@ -1,0 +1,2 @@
+Estate,Block,PlantType,YearOfPlanting,AreaHa,PlantStatus,SoilType,Topography,NoOfTrees,TreeDensity,Score,TemplateName
+Waringin,TT 2007,Non-BMP,2007,32.4,Mature,Sandy,Flat,4406,136/ha,60.7,TM – Sandy

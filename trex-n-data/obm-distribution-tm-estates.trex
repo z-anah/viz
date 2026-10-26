@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1"
+          xmlns="http://www.tableau.com/xml/extension_manifest">
+  <worksheet-extension id="com.primeagri.obm-distribution-tm-estates"
+                       extension-version="0.1.0">
+    <default-locale>en_US</default-locale>
+    <name resource-id="name"/>
+    <description>obm-distribution-tm-estates</description>
+    <author name="Cybertrend" email="contact@cybertrend-intra.com" organization="Cybertrend" website="https://cybertrend-intra.com/"/>
+    <min-api-version>1.11</min-api-version>
+    <source-location>
+      <url>http://localhost:5173/obm-distribution-tm-estates</url>
+    </source-location>
+    <icon/>
+  </worksheet-extension>
+
+  <resources>
+    <resource id="name">
+      <text locale="en_US">obm-distribution-tm-estates</text>
+    </resource>
+  </resources>
+</manifest>

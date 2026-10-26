@@ -1,0 +1,5 @@
+Category,Value
+Area A,75
+Area B,82
+Area C,68
+Area D,90

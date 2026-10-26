@@ -1,0 +1,8 @@
+Category,Gap
+Workforce,-46%
+Upkeep,-28%
+Soil & Water Conservation,-24%
+Harvesting Round,-18%
+Pest & Disease,-14%
+Fertilizer,-10%
+Yield (FFB),-6%

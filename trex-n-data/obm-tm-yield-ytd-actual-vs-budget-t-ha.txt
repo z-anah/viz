@@ -1,0 +1,2 @@
+SUM Jun,SUM Jul,SUM Aug,KAL Jun,KAL Jul,KAL Aug,Budget Jun,Budget Jul,Budget Aug,Budget KAL Jun,Budget KAL Jul,Budget KAL Aug
+11.90,15.20,17.20,10.90,13.25,15.30,11.80,15.09,17.15,10.87,13.19,15.27

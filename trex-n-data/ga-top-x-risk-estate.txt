@@ -1,0 +1,11 @@
+Estate,Score,RiskPoint
+Bukit Raya,58.4,Fertilizer Shortage
+Tanjung Sari,65.3,Workforce Shortage
+Bukit Makmur,67.7,Fertilizer Shortage
+Ulin Agro,69.2,Upkeep Shortage
+Hikmah Lima,69.7,Upkeep Shortage
+Kruing Agro,71.2,Fertilizer Shortage
+Waringin,71.5,Workforce Shortage
+Jaya Permai,72.6,Fertilizer Shortage
+Meranti Agro,72.9,Fertilizer Shortage
+Hikmah Empat,74.0,Workforce Shortage

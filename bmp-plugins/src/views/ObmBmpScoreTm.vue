@@ -1,0 +1,66 @@
+<script setup>
+import { useTableauData } from '@/composables/useTableauData'
+import PluginLayout from '@/components/PluginLayout.vue'
+
+const { cardData, loading, error, formatPercent, formatMoM, initTableau } = useTableauData({
+    bmpScore: 78,
+    sumatraScore: 84,
+    kalimantanScore: 73,
+    sumatraMoM: -1,
+    kalimantanMoM: -0.8,
+    momOverall: -0.5
+})
+
+initTableau((row, columns, targetData, { extractTableauRow }) => {
+    extractTableauRow(row, columns, targetData, {
+        bmpScore: [/bmp.*score/i, /^score$/i],
+        sumatraScore: [/sumatra.*score/i, /^sumatra$/i],
+        kalimantanScore: [/kalimantan.*score/i, /^kalimantan$/i],
+        sumatraMoM: [/sumatra.*mom/i],
+        kalimantanMoM: [/kalimantan.*mom/i],
+        momOverall: [/mom.*overall/i, /overall.*mom/i, /^mom$/i]
+    })
+})
+</script>
+
+<template>
+    <PluginLayout :loading="loading" :error="error" title="BMP Score Data">
+        <div class="text-[11px] font-bold text-[#00463E] uppercase tracking-tight truncate">
+            <span>BMP Score TM</span>
+        </div>
+
+        <div class="flex flex-wrap items-baseline justify-between gap-1 my-2 min-w-0">
+            <span class="text-2xl sm:text-3xl font-extrabold text-[#F59E0B] tracking-tight shrink-0">
+                {{ formatPercent(cardData.bmpScore) }}
+            </span>
+            <div class="text-right space-y-0.5 text-[10px] sm:text-[11px] font-bold min-w-0">
+                <div class="text-[#000000] truncate">
+                    Sumatra
+                    <span class="font-black text-[#006D65] ml-0.5">{{ formatPercent(cardData.sumatraScore) }}</span>
+                    <span :class="cardData.sumatraMoM >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'"
+                        class="text-[9px] sm:text-[10px] ml-0.5">
+                        <i :class="cardData.sumatraMoM >= 0 ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
+                        {{ formatMoM(cardData.sumatraMoM) }}
+                    </span>
+                </div>
+                <div class="text-[#000000] truncate">
+                    Kalimantan
+                    <span class="font-black text-[#006D65] ml-0.5">{{ formatPercent(cardData.kalimantanScore) }}</span>
+                    <span :class="cardData.kalimantanMoM >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'"
+                        class="text-[9px] sm:text-[10px] ml-0.5">
+                        <i :class="cardData.kalimantanMoM >= 0 ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
+                        {{ formatMoM(cardData.kalimantanMoM) }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-2 border-t border-[#E2E8F0] flex items-center justify-between min-w-0">
+            <span :class="cardData.momOverall >= 0 ? 'bg-[#D1FAE5] text-[#10B981]' : 'bg-[#FEE2E2] text-[#EF4444]'"
+                class="text-[10px] font-bold px-2 py-0.5 rounded-full truncate">
+                <i :class="cardData.momOverall >= 0 ? 'fas fa-caret-up' : 'fas fa-caret-down'"></i>
+                {{ formatMoM(cardData.momOverall) }} pp MoM
+            </span>
+        </div>
+    </PluginLayout>
+</template>
