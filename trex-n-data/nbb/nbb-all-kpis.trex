@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
+  <worksheet-extension id="com.primeagri.nbb-all-kpis" extension-version="0.1.0">
+    <default-locale>en_US</default-locale>
+    <name resource-id="name"/>
+    <description>nbb-all-kpis</description>
+    <author name="Cybertrend" email="contact@cybertrend-intra.com" organization="Cybertrend" website="https://cybertrend-intra.com/"/>
+    <min-api-version>1.11</min-api-version>
+    <source-location>
+      <url>http://localhost:5173/nbb-all-kpis</url>
+    </source-location>
+    <icon/>
+  </worksheet-extension>
+
+  <resources>
+    <resource id="name">
+      <text locale="en_US">nbb-all-kpis</text>
+    </resource>
+  </resources>
+</manifest>

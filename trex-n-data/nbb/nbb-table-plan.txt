@@ -1,0 +1,14 @@
+Activity,W %,Plan,Real,Ach. MTD,Ach. YTD,Score,Ach. BMP block
+Upkeep Management · 20%,,,,,,,40.8%
+Circle Weeding – Manual,15,97.2,64.8,0%,67%,10.0,50%
+Inter-row Weeding – Manual,10,32.4,16.2,—,50%,5.0,50%
+Path Cleaning – Manual,10,97.2,32.4,0%,33%,3.3,0%
+Circle & Path W. – Chem,15,64.8,32.4,—,50%,7.5,100%
+Path Weeding – Chemical,5,32.4,0,—,0%,0.0,0%
+Selective Weeding – Chemical,10,32.4,16.2,—,50%,5.0,50%
+Spot Spraying (Imperata),5,64.8,0,0%,0%,0.0,0%
+Wiping (Imperata),10,64.8,0,0%,0%,0.0,0%
+Pruning,20,32.4,16.2,50%,50%,10.0,100%
+Soil and Water Conservation · 10%,,,,,,,25.0%
+Foot Bridges,50,32.4,8.1,0%,25%,12.5,50%
+Trench Maintenance,50,4,1,—,25%,12.5,100%

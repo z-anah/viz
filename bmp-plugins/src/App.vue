@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="w-full h-screen overflow-x-hidden overflow-y-auto flex flex-col bg-white box-border">
+  <div id="app" class="w-full h-screen overflow-x-hidden overflow-y-auto flex flex-col box-border">
     <router-view class="w-full min-w-0" />
   </div>
 </template>

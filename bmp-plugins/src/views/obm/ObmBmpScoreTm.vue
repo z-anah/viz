@@ -1,26 +1,35 @@
 <script setup>
-import { useTableauData } from '@/composables/useTableauData'
+import { ref } from 'vue'
+import { useTabData } from '@/composables/useTabData'
 import PluginLayout from '@/components/PluginLayout.vue'
 
-const { cardData, loading, error, formatPercent, formatMoM, initTableau } = useTableauData({
-    bmpScore: 78,
-    sumatraScore: 84,
-    kalimantanScore: 73,
-    sumatraMoM: -1,
-    kalimantanMoM: -0.8,
-    momOverall: -0.5
-})
+const debugLog = ref([])
+const addLog = (msg) => {
+    debugLog.value.push(`${new Date().toLocaleTimeString()}: ${msg}`)
+}
 
-initTableau((row, columns, targetData, { extractTableauRow }) => {
-    extractTableauRow(row, columns, targetData, {
-        bmpScore: [/bmp.*score/i, /^score$/i],
-        sumatraScore: [/sumatra.*score/i, /^sumatra$/i],
-        kalimantanScore: [/kalimantan.*score/i, /^kalimantan$/i],
-        sumatraMoM: [/sumatra.*mom/i],
-        kalimantanMoM: [/kalimantan.*mom/i],
-        momOverall: [/mom.*overall/i, /overall.*mom/i, /^mom$/i]
-    })
-})
+// Define dynamic field mappings for all 6 calculated fields
+const fieldMappings = {
+    bmpScore: [/cf.*bmp.*score/i, /^bmp score$/i],
+    sumatraScore: [/cf.*sumatra.*score/i, /^sumatra score$/i],
+    kalimantanScore: [/cf.*kalimantan.*score/i, /^kalimantan score$/i],
+    sumatraMoM: [/cf.*sumatra.*mom/i, /sumatra.*mom/i],
+    kalimantanMoM: [/cf.*kalimantan.*mom/i, /kalimantan.*mom/i],
+    momOverall: [/cf.*mom.*overall/i, /mom.*overall/i, /overall.*mom/i]
+}
+
+const { cardData, loading, error, formatPercent, formatMoM } = useTabData(
+    {
+        bmpScore: null,
+        sumatraScore: null,
+        kalimantanScore: null,
+        sumatraMoM: null,
+        kalimantanMoM: null,
+        momOverall: null
+    },
+    fieldMappings,
+    addLog
+)
 </script>
 
 <template>
@@ -62,5 +71,10 @@ initTableau((row, columns, targetData, { extractTableauRow }) => {
                 {{ formatMoM(cardData.momOverall) }} pp MoM
             </span>
         </div>
+
+        <!-- <div class="mt-4 p-2 bg-black/80 text-green-400 text-[9px] font-mono rounded max-h-24 overflow-y-auto">
+            <div class="font-bold border-b border-gray-700 mb-1">Debug Console</div>
+            <div v-for="(log, index) in debugLog" :key="index">{{ log }}</div>
+        </div> -->
     </PluginLayout>
 </template>

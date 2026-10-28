@@ -1,0 +1,7 @@
+Category,Weight,Planned,Realized,Ach,Details
+Upkeep Management,weight 20%,9 act.,5 act.,52.5%,activities · weighted ach.
+Soil & Water Conservation,weight 10%,2 act.,2 act.,75.0%,activities · weighted ach.
+Nutrient Management,weight 30%,6 act.,5 act.,51.9%,activities · weighted ach.
+Crop Management,weight 30%,3 act.,3 act.,84.9%,activities · weighted ach.
+Integrated Pest & Disease,weight 10%,6 act.,6 act.,75.8%,activities · weighted ach.
+Yield Gap Production,weight 100% (Output),Budget 16.40,Actual 13.84,89.6%,t/ha YTD · Ach. = 50% Bgt + 50% BBC

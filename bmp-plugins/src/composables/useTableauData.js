@@ -24,12 +24,13 @@ export function useTableauData(initialMockData) {
     return num.toFixed(1)
   }
 
-  async function handleRefresh(processDataRow) {
+  async function handleRefresh(processDataRow, onSummaryData) {
     try {
       const table = await worksheet.getSummaryDataAsync()
       const columns = table.columns || []
       const data = table.data || []
 
+      if (onSummaryData) onSummaryData(table)
       if (data.length > 0) {
         processDataRow(data[0], columns, cardData, { findColumn, numericValue, extractTableauRow })
       }
@@ -60,7 +61,7 @@ export function useTableauData(initialMockData) {
         try {
           isTableauMode.value = true
           await window.tableau.extensions.initializeAsync()
-          
+
           // Find worksheet in dashboard context or fall back to worksheetContent
           const dashboard = window.tableau.extensions.dashboardContent?.dashboard
           if (dashboard) {

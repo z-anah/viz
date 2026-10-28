@@ -130,7 +130,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <PluginLayout :loading="loading" :error="error" title="Non-BMP Block Meta Header">
+    <PluginLayout :loading="loading" :error="error" title="Non-BMP Block Meta Header" bgClass="bg-slate-50">
         <div class="flex items-center justify-between w-full h-full min-w-0">
             <div class="grid grid-cols-10 gap-2 text-[10px] flex-1">
                 <div>

@@ -1,0 +1,6 @@
+Activity,Plan YTD,Realized YTD,Ach,Ach. BMP Block (TT 2007)
+Upkeep Management,9 act.,5 act.,52.5%,68.0%
+Soil & Water Conservation,2 act.,2 act.,75.0%,80.0%
+Nutrient Management,6 act.,5 act.,51.9%,60.5%
+Crop Management,3 act.,3 act.,84.9%,90.2%
+Integrated Pest & Disease,6 act.,6 act.,75.8%,72.4%

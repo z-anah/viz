@@ -1,0 +1,3 @@
+Category,Weight,Description
+Input,70%,BMP activities (5 categories)
+Output,30%,Yield Gap Production

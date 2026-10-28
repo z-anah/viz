@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const modules = import.meta.glob('../views/*.vue')
+const modules = import.meta.glob('../views/**/*.vue')
 
 const kebabCase = (str) =>
   str
