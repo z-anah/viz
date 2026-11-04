@@ -13,25 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Install pnpm CLI before setting up Node.js
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9 # Matches or exceeds standard pnpm versions
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
-          cache-dependency-path: bmp-plugins/pnpm-lock.yaml
+          cache: 'npm'
+          cache-dependency-path: bmp-plugins/package-lock.json
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
         working-directory: bmp-plugins
 
       - name: Build project
-        run: pnpm run build
+        run: npm run build
         working-directory: bmp-plugins
 
       - name: Deploy to GitHub Pages
