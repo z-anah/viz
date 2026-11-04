@@ -19,8 +19,13 @@ const dynamicRoutes = Object.keys(modules).map((path) => {
   }
 })
 
+// const router = createRouter({
+//   history: createWebHistory(),
+//   routes: dynamicRoutes
+// })
+
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: dynamicRoutes
 })
 
