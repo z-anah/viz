@@ -445,7 +445,7 @@ body {
     <author name="Cybertrend" email="contact@cybertrend-intra.com" organization="Cybertrend" website="https://cybertrend-intra.com/"/>
     <min-api-version>1.11</min-api-version>
     <source-location>
-      <url>http://localhost:5173/obm-test-chart-simple</url>
+      <url>https://z-anah.github.io/viz/obm-test-chart-simple</url>
     </source-location>
     <icon/>
   </worksheet-extension>
