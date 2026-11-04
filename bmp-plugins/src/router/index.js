@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const modules = import.meta.glob('../views/**/*.vue')
 
@@ -20,7 +20,7 @@ const dynamicRoutes = Object.keys(modules).map((path) => {
 })
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: dynamicRoutes
 })
 
