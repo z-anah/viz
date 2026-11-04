@@ -1,4 +1,4 @@
-name: Deploy BMP-PLUGINS to GitHub Pages
+name: Deploy bmp-plugins to GitHub Pages
 
 on:
   push:
@@ -18,18 +18,18 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-          cache-dependency-path: BMP-PLUGINS/package-lock.json
+          cache-dependency-path: bmp-plugins/package-lock.json
 
       - name: Install dependencies
         run: npm ci
-        working-directory: BMP-PLUGINS
+        working-directory: bmp-plugins
 
       - name: Build project
         run: npm run build
-        working-directory: BMP-PLUGINS
+        working-directory: bmp-plugins
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./BMP-PLUGINS/dist
+          publish_dir: ./bmp-plugins/dist
