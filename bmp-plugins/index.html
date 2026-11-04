@@ -2,13 +2,14 @@
 <html lang="">
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="./viz/bmp-plugins/favicon.ico">
+    <link rel="icon" href="/viz/bmp-plugins/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vite App</title>
-    <script src="./viz/bmp-plugins/tableau.extensions.1.latest.min.js"></script>
+    <!-- Add type="text/javascript" so Vite bypasses module bundling for this external/global script -->
+    <script type="text/javascript" src="/viz/bmp-plugins/tableau.extensions.1.latest.min.js"></script>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="./viz/bmp-plugins/src/main.js"></script>
+    <script type="module" src="/viz/bmp-plugins/src/main.js"></script>
   </body>
 </html>
