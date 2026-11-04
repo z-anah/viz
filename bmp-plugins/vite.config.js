@@ -7,9 +7,10 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './', // <-- Use relative base path so it adapts to any subfolder automatically
+  base: '/viz/bmp-plugins/', // <-- Add this line (match your repo and folder name)
   plugins: [
     vue(),
+    // vueDevTools(),
     tailwindcss(),
   ],
   resolve: {
