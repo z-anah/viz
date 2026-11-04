@@ -7,7 +7,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/viz/BMP-PLUGINS/', // <-- Add this line (match your repo and folder name)
   plugins: [
     vue(),
     // vueDevTools(),
