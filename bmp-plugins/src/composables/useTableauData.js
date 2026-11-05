@@ -36,8 +36,8 @@ export function useTableauData(initialMockData) {
       }
       error.value = ''
     } catch (err) {
-      error.value = `Could not read worksheet data: ${err.message}`
-      console.error('Tableau Data error:', err)
+      isTableauMode.value = false
+      error.value = ''
     } finally {
       loading.value = false
     }

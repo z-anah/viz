@@ -1,2 +1,0 @@
-High,Mid,Low,High Diff,Mid Diff
-2,5,11,±0,±0

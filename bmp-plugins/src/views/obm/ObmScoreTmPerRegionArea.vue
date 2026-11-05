@@ -11,7 +11,24 @@ let chartInstance = null
 let worksheet = null
 let eventHandler = null
 
-function initChart(labels, junVals, julVals, augVals) {
+// Helper to get dynamic rolling 3-month labels ending at a target date
+function getDynamicMonths(targetDateStr = 'Aug 2026') {
+    const baseDate = new Date(`1 ${targetDateStr}`)
+    const months = []
+    for (let i = 2; i >= 0; i--) {
+        const d = new Date(baseDate.getFullYear(), baseDate.getMonth() - i, 1)
+        months.push({
+            name: d.toLocaleString('en-US', { month: 'short' }),
+            fullName: d.toLocaleString('en-US', { month: 'long' }),
+            year: d.getFullYear()
+        })
+    }
+    return months
+}
+
+const activeMonths = getDynamicMonths('Aug 2026')
+
+function initChart(labels, m1Vals, m2Vals, m3Vals) {
     const ctx = document.getElementById('scoreChart')
     if (!ctx) return
 
@@ -25,22 +42,22 @@ function initChart(labels, junVals, julVals, augVals) {
             labels: labels,
             datasets: [
                 {
-                    label: 'Jun',
-                    data: junVals,
+                    label: activeMonths[0].name,
+                    data: m1Vals,
                     backgroundColor: '#D1FAE5',
                     barPercentage: 0.7,
                     categoryPercentage: 0.7
                 },
                 {
-                    label: 'Jul',
-                    data: julVals,
+                    label: activeMonths[1].name,
+                    data: m2Vals,
                     backgroundColor: '#00D0BC',
                     barPercentage: 0.7,
                     categoryPercentage: 0.7
                 },
                 {
-                    label: 'Aug',
-                    data: augVals,
+                    label: activeMonths[2].name,
+                    data: m3Vals,
                     backgroundColor: '#006D65',
                     barPercentage: 0.7,
                     categoryPercentage: 0.7
@@ -52,7 +69,7 @@ function initChart(labels, junVals, julVals, augVals) {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } },
             scales: {
-                y: { min: 50, max: 100, ticks: { font: { size: 8 } }, grid: { color: '#F1F5F9' } },
+                y: { ticks: { font: { size: 8 } }, grid: { color: '#F1F5F9' } },
                 x: { ticks: { font: { size: 8 } }, grid: { display: false } }
             }
         }
@@ -99,73 +116,51 @@ onMounted(async () => {
 
             if (data.length > 0 && columns.length > 0) {
                 const colNames = columns.map(col => String(col.fieldName || col.caption || '').trim())
-                
+
                 const labels = []
-                const junVals = []
-                const julVals = []
-                const augVals = []
+                const m1Vals = []
+                const m2Vals = []
+                const m3Vals = []
 
-                if (columns.length >= 4 && data.length > 1) {
-                    data.forEach((row) => {
-                        let label = ''
-                        let jun = 0
-                        let jul = 0
-                        let aug = 0
+                data.forEach((row) => {
+                    let label = ''
+                    let v1 = 0
+                    let v2 = 0
+                    let v3 = 0
 
-                        for (let c = 0; c < columns.length; c++) {
-                            const colName = colNames[c].toLowerCase()
-                            const cellVal = row[c] ? String(row[c].formattedValue ?? row[c].value ?? '').trim() : ''
-                            const rawVal = row[c] ? (row[c].formattedValue ?? row[c].value) : null
-                            const numVal = typeof rawVal === "number" ? rawVal : (rawVal == null || rawVal === "" ? 0 : Number(String(rawVal).replace(/,/g, "").trim()))
+                    for (let c = 0; c < columns.length; c++) {
+                        const colName = colNames[c].toLowerCase()
+                        const rawVal = row[c] ? (row[c].formattedValue ?? row[c].value) : null
+                        const cellVal = row[c] ? String(row[c].formattedValue ?? row[c].value ?? '').trim() : ''
+                        const numVal = typeof rawVal === "number" ? rawVal : (rawVal == null || rawVal === "" ? 0 : Number(String(rawVal).replace(/,/g, "").trim()))
 
-                            if (colName.includes('area') || colName.includes('region') || colName.includes('name') || c === 0) {
-                                if (cellVal && isNaN(cellVal)) label = cellVal
+                        // Strictly target area/region columns and ignore null or numeric strings
+                        if (colName.includes('area') || colName.includes('region') || colName.includes('name')) {
+                            if (cellVal && cellVal.toLowerCase() !== 'null' && cellVal !== '' && isNaN(cellVal)) {
+                                label = cellVal
                             }
-                            if (colName.includes('jun')) jun = numVal
-                            else if (colName.includes('jul')) jul = numVal
-                            else if (colName.includes('aug')) aug = numVal
                         }
 
-                        if (label) {
-                            labels.push(label)
-                            junVals.push(jun)
-                            julVals.push(jul)
-                            augVals.push(aug)
-                        }
-                    })
-                } else {
-                    const row = data[0]
-                    const defaultLabels = ['SUM-1', 'SUM-2', 'SUM-3', 'SUM-4', 'KAL-1', 'KAL-2', 'KAL-3']
-                    defaultLabels.forEach(() => {
-                        labels.push('')
-                        junVals.push(0)
-                        julVals.push(0)
-                        augVals.push(0)
-                    })
+                        if (colName.includes(activeMonths[0].name.toLowerCase())) v1 = numVal
+                        else if (colName.includes(activeMonths[1].name.toLowerCase())) v2 = numVal
+                        else if (colName.includes(activeMonths[2].name.toLowerCase())) v3 = numVal
+                    }
 
-                    colNames.forEach((name, index) => {
-                        const rawVal = row[index] ? (row[index].formattedValue ?? row[index].value) : null
-                        const val = typeof rawVal === "number" ? rawVal : (rawVal == null || rawVal === "" ? 0 : Number(String(rawVal).replace(/,/g, "").trim()))
-                        const lowerName = name.toLowerCase()
+                    // Only push if a valid non-null label exists
+                    if (label && label.toLowerCase() !== 'null') {
+                        labels.push(label)
+                        m1Vals.push(v1)
+                        m2Vals.push(v2)
+                        m3Vals.push(v3)
+                    }
+                })
 
-                        defaultLabels.forEach((areaLabel, aIdx) => {
-                            const cleanArea = areaLabel.toLowerCase().replace('-', '')
-                            if (lowerName.includes(cleanArea) || lowerName.includes(areaLabel.toLowerCase())) {
-                                labels[aIdx] = areaLabel
-                                if (lowerName.includes('jun')) junVals[aIdx] = val
-                                else if (lowerName.includes('jul')) julVals[aIdx] = val
-                                else if (lowerName.includes('aug')) augVals[aIdx] = val
-                            }
-                        })
-                    })
-                }
-
-                const validLabels = labels.filter(l => l !== '')
+                const validLabels = labels.filter(l => l !== '' && l.toLowerCase() !== 'null')
                 if (validLabels.length > 0) {
                     hasData.value = true
                     loading.value = false
                     await nextTick()
-                    initChart(labels, junVals, julVals, augVals)
+                    initChart(labels, m1Vals, m2Vals, m3Vals)
                     return
                 }
             }
@@ -204,20 +199,30 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <PluginLayout :loading="loading" :error="error" title="BMP Score TM per Region–Area">
+    <PluginLayout :error="error" :loading="loading" title="BMP Score TM per Region–Area">
         <div class="flex flex-col justify-between h-full w-full">
             <div class="flex items-center justify-between mb-1 min-w-0">
-                <h3 class="text-[11px] font-bold text-[#00463E] uppercase">BMP Score TM per Region–Area · Jun–Aug</h3>
+                <h3 class="text-[11px] font-bold text-[#00463E] uppercase">
+                    BMP Score TM per Region–Area · {{ activeMonths[0].name }}–{{ activeMonths[2].name }}
+                </h3>
                 <div class="flex items-center space-x-2 text-[9px] text-[#00463E]/80 font-medium shrink-0">
-                    <span class="flex items-center"><span class="w-2 h-2 bg-[#D1FAE5] mr-1 inline-block rounded-xs"></span>Jun</span>
-                    <span class="flex items-center"><span class="w-2 h-2 bg-[#00D0BC] mr-1 inline-block rounded-xs"></span>Jul</span>
-                    <span class="flex items-center"><span class="w-2 h-2 bg-[#006D65] mr-1 inline-block rounded-xs"></span>Aug</span>
+                    <span class="flex items-center"><span
+                            class="w-2 h-2 bg-[#D1FAE5] mr-1 inline-block rounded-xs"></span>{{ activeMonths[0].name
+                            }}</span>
+                    <span class="flex items-center"><span
+                            class="w-2 h-2 bg-[#00D0BC] mr-1 inline-block rounded-xs"></span>{{ activeMonths[1].name
+                            }}</span>
+                    <span class="flex items-center"><span
+                            class="w-2 h-2 bg-[#006D65] mr-1 inline-block rounded-xs"></span>{{ activeMonths[2].name
+                            }}</span>
                 </div>
             </div>
 
-            <div v-if="!hasData && !loading" class="flex flex-col items-center justify-center h-full text-slate-400 text-xs font-medium">
+            <div v-if="!hasData && !loading"
+                class="flex flex-col items-center justify-center h-full text-slate-400 text-xs font-medium">
                 <span class="mb-1"><i class="fas fa-info-circle mr-1"></i> No data available</span>
-                <span class="text-[10px] text-slate-400">Please drag Region-Area and Monthly Score measures into marks.</span>
+                <span class="text-[10px] text-slate-400">Please drag Cf Region and Monthly Score measures into
+                    marks.</span>
             </div>
 
             <div v-show="hasData" class="flex-1 relative min-h-0 w-full h-full">

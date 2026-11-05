@@ -34,9 +34,8 @@ export function useTabData(initialMockData, fieldMappings, addLog = () => { }) {
             }
             error.value = ''
         } catch (err) {
-            error.value = `Could not read worksheet data: ${err.message}`
-            console.error('Tableau Data error:', err)
-            addLog(error.value)
+            isTableauMode.value = false
+            error.value = ''
         } finally {
             loading.value = false
         }
@@ -69,8 +68,7 @@ export function useTabData(initialMockData, fieldMappings, addLog = () => { }) {
             await handleRefresh()
         } catch (err) {
             isTableauMode.value = false
-            error.value = `Tableau init error: ${err.message}`
-            addLog(error.value)
+            error.value = ''
         } finally {
             loading.value = false
         }

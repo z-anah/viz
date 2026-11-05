@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest manifest-version="0.1" xmlns="http://www.tableau.com/xml/extension_manifest">
-  <worksheet-extension id="com.primeagri.ga-top-x-delayed-activity" extension-version="0.1.0">
+  <worksheet-extension id="com.primeagri.template-i-bar-chart" extension-version="0.1.0">
     <default-locale>en_US</default-locale>
     <name resource-id="name"/>
-    <description>ga-top-x-delayed-activity</description>
+    <description>Eating Habits Bar Chart Extension</description>
     <author name="Cybertrend" email="contact@cybertrend-intra.com" organization="Cybertrend" website="https://cybertrend-intra.com/"/>
     <min-api-version>1.11</min-api-version>
     <source-location>
-      <url>https://z-anah.github.io/viz/ga-top-x-delayed-activity</url>
+      <url>http://localhost:5173/viz/#/template-i-bar-chart</url>
     </source-location>
     <icon/>
   </worksheet-extension>
 
   <resources>
     <resource id="name">
-      <text locale="en_US">ga-top-x-delayed-activity</text>
+      <text locale="en_US">template-i-bar-chart</text>
     </resource>
   </resources>
 </manifest>

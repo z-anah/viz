@@ -12,7 +12,7 @@ let worksheet = null
 let eventHandler = null
 
 function initChart(labels, values) {
-    const ctx = document.getElementById('yieldVsBudgetChart')
+    const ctx = document.getElementById('yieldBudgetChart')
     if (!ctx) return
 
     if (chartInstance) {
@@ -28,8 +28,8 @@ function initChart(labels, values) {
                     label: 'Yield vs Budget YTD',
                     data: values,
                     backgroundColor: '#006D65',
-                    barPercentage: 0.6,
-                    categoryPercentage: 0.6
+                    barPercentage: 0.65,
+                    categoryPercentage: 0.7
                 }
             ]
         },
@@ -40,14 +40,12 @@ function initChart(labels, values) {
                 legend: { display: false },
                 tooltip: {
                     callbacks: {
-                        label: (context) => `${context.raw}%`
+                        label: (context) => `Yield vs Budget: ${Math.round(context.raw)}%`
                     }
                 }
             },
             scales: {
                 y: {
-                    min: 50,
-                    max: 120,
                     ticks: {
                         font: { size: 8 },
                         callback: (value) => `${value}%`
@@ -59,25 +57,7 @@ function initChart(labels, values) {
                     grid: { display: false }
                 }
             }
-        },
-        plugins: [{
-            id: 'customDataLabels',
-            afterDatasetsDraw(chart) {
-                const { ctx, data } = chart
-                ctx.save()
-                ctx.font = 'bold 9px sans-serif'
-                ctx.fillStyle = '#334155'
-                ctx.textAlign = 'center'
-                ctx.textBaseline = 'bottom'
-
-                chart.getDatasetMeta(0).data.forEach((bar, index) => {
-                    const value = data.datasets[0].data[index]
-                    const text = `${value}%`
-                    ctx.fillText(text, bar.x, bar.y - 4)
-                })
-                ctx.restore()
-            }
-        }]
+        }
     })
 }
 
@@ -119,7 +99,7 @@ onMounted(async () => {
 
             if (data.length > 0 && columns.length > 0) {
                 const colNames = columns.map(col => String(col.fieldName || col.caption || '').trim())
-                
+
                 const labels = []
                 const values = []
 
@@ -129,19 +109,22 @@ onMounted(async () => {
 
                     for (let c = 0; c < columns.length; c++) {
                         const colName = colNames[c].toLowerCase()
-                        const cellVal = row[c] ? String(row[c].formattedValue ?? row[c].value ?? '').trim() : ''
                         const rawVal = row[c] ? (row[c].formattedValue ?? row[c].value) : null
-                        const numVal = typeof rawVal === "number" ? rawVal : (rawVal == null || rawVal === "" ? 0 : Number(String(rawVal).replace(/,/g, "").trim()))
+                        const cellVal = row[c] ? String(row[c].formattedValue ?? row[c].value ?? '').trim() : ''
+                        const numVal = typeof rawVal === "number" ? rawVal : (rawVal == null || rawVal === "" ? 0 : Number(String(rawVal).replace(/[%|,]/g, "").trim()))
 
-                        if (colName.includes('area') || colName.includes('region') || colName.includes('name') || c === 0) {
-                            if (cellVal && isNaN(cellVal)) label = cellVal
+                        if (colName.includes('region') || colName.includes('area') || colName.includes('name')) {
+                            if (cellVal && cellVal.toLowerCase() !== 'null' && isNaN(cellVal)) {
+                                label = cellVal
+                            }
                         }
-                        if (colName.includes('yield') || colName.includes('budget') || colName.includes('vs') || c === 1) {
-                            if (!isNaN(numVal)) val = numVal
+
+                        if (colName.includes('real vs budget') || colName.includes('yield') || colName.includes('budget') || colName.includes('score')) {
+                            val = numVal > 1 ? numVal : numVal * 100
                         }
                     }
 
-                    if (label) {
+                    if (label && label.toLowerCase() !== 'null') {
                         labels.push(label)
                         values.push(val)
                     }
@@ -190,19 +173,23 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <PluginLayout :loading="loading" :error="error" title="Yield vs Budget YTD per Region–Area">
+    <PluginLayout :error="error" :loading="loading" title="Yield vs Budget YTD per Region–Area">
         <div class="flex flex-col justify-between h-full w-full">
             <div class="flex items-center justify-between mb-1 min-w-0">
-                <h3 class="text-[11px] font-bold text-[#00463E] uppercase truncate">Yield vs Budget YTD per Region–Area · Aug</h3>
+                <h3 class="text-[11px] font-bold text-[#00463E] uppercase">
+                    Yield vs Budget YTD per Region–Area · Aug
+                </h3>
             </div>
 
-            <div v-if="!hasData && !loading" class="flex flex-col items-center justify-center h-full text-slate-400 text-xs font-medium">
+            <div v-if="!hasData && !loading"
+                class="flex flex-col items-center justify-center h-full text-slate-400 text-xs font-medium">
                 <span class="mb-1"><i class="fas fa-info-circle mr-1"></i> No data available</span>
-                <span class="text-[10px] text-slate-400">Please drag Region-Area and Yield vs Budget measures into marks.</span>
+                <span class="text-[10px] text-slate-400">Please drag Cf Region and Cf Real Vs Budget measures into
+                    marks.</span>
             </div>
 
             <div v-show="hasData" class="flex-1 relative min-h-0 w-full h-full">
-                <canvas id="yieldVsBudgetChart"></canvas>
+                <canvas id="yieldBudgetChart"></canvas>
             </div>
         </div>
     </PluginLayout>
