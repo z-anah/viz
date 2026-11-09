@@ -61,4 +61,4 @@ generate all in one datamart final csv of the content chart and it's content
 * Use Marks Detail
 * TemplateIBarChart.vue
 * template-i-bar-chart.trex
-* http://localhost:5173/viz/#/template-i-bar-chart
+* https://z-anah.github.io/viz/#/template-i-bar-chart

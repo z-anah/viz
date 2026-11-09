@@ -6,7 +6,7 @@ const routes = router.getRoutes().filter(route => route.path !== '/')
 </script>
 
 <template>
-    <div class="w-full h-full box-border p-4 flex flex-col bg-white overflow-y-auto">
+    <div class="w-full h-full box-border p-4 flex flex-col overflow-y-auto">
         <h1 class="text-sm font-bold text-[#00463E] uppercase tracking-tight mb-3">
             Available Plugins
         </h1>

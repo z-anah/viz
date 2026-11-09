@@ -1,18 +1,22 @@
 rm -rf FOR-AI && \
 mkdir -p FOR-AI && \
-cp package.json \
+cp \
+   package.json \
+   src/style.css \
    src/components/PluginLayout.vue \
    src/composables/useTabData.js \
    src/composables/useTableauData.js \
    src/utils/tabHelpers.js \
    src/utils/tableauHelpers.js \
    src/views/template/TemplateIBarChart.vue \
+   src/components/RequiredMarks.vue \
    FOR-AI/
 
 
 
 rm -rf FOR-AI && \
 mkdir -p FOR-AI && \
-cp src/views/obm/ObmViii.vue \
+cp \
+   src/views/obm/ObmViii.vue \
    src/views/template/TemplateIBarChart.vue \
    FOR-AI/

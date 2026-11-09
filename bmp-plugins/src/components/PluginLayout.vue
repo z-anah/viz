@@ -5,13 +5,13 @@ defineProps({
     title: String,
     bgClass: {
         type: String,
-        default: 'bg-pink'
+        default: 'bg-transparant'
     }
 })
 </script>
 
 <template>
-    <div :class="['w-full h-full p-1 pb-2']">
+    <div :class="['w-full h-full p-1 pb-2 bg-[#F8FAFC]']">
         <div
             :class="['w-full h-full rounded-md p-1 border border-[#E2E8F0] shadow-2xs flex flex-col justify-between min-w-0', bgClass]">
             <div v-if="loading" class="flex items-center justify-center h-full text-slate-500 text-xs font-medium">
